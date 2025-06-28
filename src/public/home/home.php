@@ -16,28 +16,38 @@ require_once "public/shared/header.php";?>
 
 <!-- vetrine de produtos -->
 <section class="prod mg-t-6">
+
     <div class="container bg-branco radius">
             <div class="box-12 mg-b-3">
                 <h3 class="fonte40 fnc-preto-1 poppins-black">Produtos em destaque</h3>
             </div>
 
-        <div class="box-2 borda-1 shadow-down pd-10">
+            <!-- Listando todos os produtos -->
+            <?php 
+            if(isset($ret) && count($ret) > 0):
+
+                foreach($ret as $key => $valor):
+            ?>
+
+            <div class="box-2 borda-1 shadow-down pd-10">
             <div class="box-12">
                 <h4 class ="fonte14  mg-b-2">Promoção</h4>
             </div>
             <div class="box-8">
-                            <img src="lib/img/notebook.png" alt="">
+            <img src="lib/img/<?= $valor->getImagem()?>" alt="" class="img-prod">
             </div>
             <div class="box-12 mg-t-2 mg-b-1">
-            <p class="fonte14 ">notebook</p>
+            <p class="fonte14 "><?= $valor->getDescricao();?></p>
              <div class="divider"></div>
             </div>
             <div class="box-12 mg-t-1 mg-b-2">
-                <p class="fonte18 poppins-black txt-c">R$ 1250.99</p>
+                <p class="fonte18 poppins-black txt-c">R$<?= $valor->getPreco(); ?></p>
             </div>
             <a href="index.php?arquivo=Controlador&metodo=metodo" class="btn-100 bg-p7-electric mg-t-1 fnc-branco fonte14 bg-p1-verde-hover" >inserir no carrinho
             </a>
-        </div>
+            </div>
+
+            <?php endforeach; endif?>
         
     </div>
 </section>

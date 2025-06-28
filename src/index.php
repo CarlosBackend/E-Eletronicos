@@ -1,5 +1,6 @@
 <?php
 
+require_once "classes/Produto.php";
 if($_GET):
 
     $controller = $_GET['arquivo'];
@@ -8,12 +9,9 @@ if($_GET):
     require_once "classes/".$controller.".php";
 
     $obj = new $controller();
-    if(method_exists($obj, $metodo)){
-        $obj->$metodo();
-    } else {
-        echo "Método não encontrado.";
-    }else:
-        require_once "public/home/home.php";
+    $obj-> $metodo();
+    else:
+        require_once "classes/Controlador.php";
         $obj = new Controlador();
         $obj->index();
 endif;  
