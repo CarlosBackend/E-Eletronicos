@@ -43,7 +43,7 @@ require_once "public/shared/header.php";?>
             <div class="box-12 mg-t-1 mg-b-2">
                 <p class="fonte18 poppins-black txt-c">R$<?= $valor->getPreco(); ?></p>
             </div>
-            <a href="index.php?arquivo=Controlador&metodo=metodo" class="btn-100 bg-p7-electric mg-t-1 fnc-branco fonte14 bg-p1-verde-hover" >inserir no carrinho
+            <a href="index.php?arquivo=Controlador&metodo=metodo&id=<?=$valor->getId();?>" class="btn-100 bg-p7-electric mg-t-1 fnc-branco fonte14 bg-p1-verde-hover" >inserir no carrinho
             </a>
             </div>
 

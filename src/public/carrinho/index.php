@@ -19,12 +19,12 @@
                     <!-- table data -->
                      <tbody>
                         <tr class="zebra">
-                            <td class="fonte12 pd-5 txt-c">1</td>
-                            <td class="fonte12 pd-5 txt-c">Notebook</td>
-                            <td class="fonte12 pd-5 txt-c">2</td>
-                            <td class="fonte12 pd-5 txt-c">000.00</td>
+                            <td class="fonte12 pd-5 txt-c"> <?= $_SESSION['carrinho']['id'];?></td>
+                            <td class="fonte12 pd-5 txt-c"><?= $_SESSION['carrinho']['descricao'];?></td>
+                            <td class="fonte12 pd-5 txt-c"><?= $_SESSION['carrinho']['qtde'];?></td>
+                            <td class="fonte12 pd-5 txt-c"><?= 'R$'.number_format($_SESSION['carrinho']['preco'], 2,',','.');?></td>
                             <td class="fonte12 pd-5 txt-c">
-                                <img src="../../lib/img/notebook.png" alt="" class="logo-60 mg-auto">
+                                <img src="lib/img/<?= $_SESSION['carrinho']['imagem'];?>" alt="" class="logo-60 mg-auto">
                             </td>
                             <td class="fonte12 pd-5 txt-c">000.00</td>
                             <td class="fonte12 pd-5 txt-c">
