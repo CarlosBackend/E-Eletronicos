@@ -1,3 +1,8 @@
+<?php
+ if(!isset($_SESSION)):
+    SESSION_START();
+    endif;
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
