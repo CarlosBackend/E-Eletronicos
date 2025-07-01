@@ -18,22 +18,31 @@
                     </thead>
                     <!-- table data -->
                      <tbody>
-                        <tr class="zebra">
-                            <td class="fonte12 pd-5 txt-c"> <?= $_SESSION['carrinho']['id'];?></td>
-                            <td class="fonte12 pd-5 txt-c"><?= $_SESSION['carrinho']['descricao'];?></td>
-                            <td class="fonte12 pd-5 txt-c"><?= $_SESSION['carrinho']['qtde'];?></td>
-                            <td class="fonte12 pd-5 txt-c"><?= 'R$'.number_format($_SESSION['carrinho']['preco'], 2,',','.');?></td>
-                            <td class="fonte12 pd-5 txt-c">
-                                <img src="lib/img/<?= $_SESSION['carrinho']['imagem'];?>" alt="" class="logo-60 mg-auto">
+                        <?php
+                        if(isset($_SESSION['carrinho'])): // Verifica se a sessão carrinho está setada
+                            foreach($_SESSION['carrinho'] as $key => $value):
+                                $subTotal = $_SESSION['carrinho'][$key]['preco'] * $_SESSION['carrinho'][$key]['qtde'] // Percorre o array carrinho
+                        ?>
+                         <tr class="zebra">
+                           
+                            <td class="fonte12 pd-5 txt-c"> <?= $_SESSION['carrinho'][$key]['id']; ?></td>
+                            <td class="fonte12 pd-5 txt-c"> <?= $_SESSION['carrinho'][$key]['descricao'];?></td>
+                            <td class="fonte12 pd-5 txt-c"> 
+                                <input type="text" class="qtde"  rel="<?= $key; ?>" value="<?= $_SESSION['carrinho'][$key]['qtde'];?> ">
+                                   
                             </td>
-                            <td class="fonte12 pd-5 txt-c">000.00</td>
+                            <td class="fonte12 pd-5 txt-c"> <?= 'R$ '.number_format($_SESSION['carrinho'][$key]['preco'],2,',','.');?></td>
                             <td class="fonte12 pd-5 txt-c">
-                                <a href="" class="txt-c flex justify-center item-centro">
+                                <img src="lib/img/<?= $_SESSION['carrinho'][$key]['imagem'];?>" alt="" class="logo-60 mg-auto">
+                            </td>
+                            <td class="fonte12 pd-5 txt-c"> R$ <?= number_format($subTotal,2,',','.'); ?></td>
+                            <td>
+                                <a href="index.php?arquivo=Controlador&metodo=atualizarCarrinho&linha=<?= $key; ?>" class="txt-c flex justify-center item-centro">
                                     <i class="fa-solid fa-trash-can fonte22 fnc-error"></i>
                                 </a>
                             </td>
                         </tr>
-
+                        <?php endforeach; // Fim do foreach ?>
                         <tr>
                             <td colspan="6">
                                 <label for="">Selecionar Clientes</label>
@@ -58,6 +67,11 @@
                                 <input type="submit" value="Finalizar" class="btn-100 bg-p1-amarelo fnc-branco">
                             </td>
                         </tr>
+                        <?php else: // Se a sessão carrinho não estiver setada ?>
+                        <tr>
+                            <td colspan="7">Carrinho Vazio!</td>
+                        </tr>
+                        <?php endif;?>
                      </tbody>
                 </table>
             </form>
@@ -65,5 +79,25 @@
     </div>
 </section>
 
+<script type="text/javascript" src="lib/js/jquery-3.6.4.min.js"></script>
+<script>
+     $(function() {
+        $('.qtde').change(function() {
+            var linha = $(this).attr('rel');
+            var quantidade = $(this).val();
+            alert(quantidade);
+            $.ajax({
+                type: "POST",
+                url: "index.php?arquivo=Controlador&metodo=atualizarCarrinho",
+
+                data: "quantidade=" + quantidade + "&linha=" + linha,
+                success: function() {
+                    location.reload();
+                }
+
+            });
+        });
+    });
+</script>
 <?php require_once "public/shared/footer.php";?>
 
