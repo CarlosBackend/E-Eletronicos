@@ -6,7 +6,7 @@ if($_GET): // Verifica se existe algum parâmetro na URL
     $controller = $_GET['arquivo']; // 
     $metodo = $_GET['metodo'];
 
-    require_once "classes/".$controller.".php";
+    require_once "classes/".$controller.".php"; // Inclui o arquivo do controlador baseado no parâmetro 'arquivo' da URL
 
     $obj = new $controller();
     $obj-> $metodo();

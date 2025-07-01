@@ -3,7 +3,7 @@
 <section class="car">
     <div class="container">
         <div class="box-6 mg-t-6">
-            <form action="" method="post">
+            <form action="index.php?arquivo=Controlador&metodo=finalizarCarrinho" method="post">
                 <table class="car-table">
                     <thead>
                         <tr>
@@ -85,7 +85,6 @@
         $('.qtde').change(function() {
             var linha = $(this).attr('rel');
             var quantidade = $(this).val();
-            alert(quantidade);
             $.ajax({
                 type: "POST",
                 url: "index.php?arquivo=Controlador&metodo=atualizarCarrinho",
