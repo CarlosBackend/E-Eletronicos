@@ -1,7 +1,8 @@
 <?php
     SESSION_START();
 require_once "classes/Produto.php";
-class Controlador {
+require_once "classes/Notification.php"; 
+class Controlador extends Notification {
 
     public function index(){
         $prod = new Produto();
@@ -40,6 +41,17 @@ class Controlador {
         require_once "public/carrinho/index.php";
     }
     public function atualizarCarrinho(): void{
+
+        if($_GET):
+            $linha = $_GET['linha']; // Obtém a linha do carrinho
+            if(isset($_SESSION['carrinho'][$linha])):
+                unset($_SESSION['carrinho'][$linha]); // Remove o produto da sessão o metodo unset() é usado para remover um elemento de um array
+            endif;
+            // Redireciona para a página do carrinho após remover o produto
+            header("Location: index.php?arquivo=Controlador&metodo=metodo");
+            exit; // Encerra o script após o redirecionamento
+        endif;
+
         if($_POST):
             $linha = $_POST['linha']; // Obtém a linha do carrinho
             $qtde = $_POST['quantidade']; // Obtém a nova quantidade
@@ -48,5 +60,11 @@ class Controlador {
             endif;
         endif;  
 
+    }
+
+    public function finalizarCarrinho(): void {
+        // session_destroy(); // Destrói a sessão para finalizar o carrinho
+        unset($_SESSION['carrinho']); // Remove o carrinho da sessão
+        echo $this-> success('Carrinho finalizado com sucesso! Obrigado pela compra.','Controlador','metodo');
     }
 }
