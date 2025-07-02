@@ -1,18 +1,29 @@
-<?php
+<?php 
 
-require_once "classes/Produto.php"; // Inclui a classe Produto
-if($_GET): // Verifica se existe algum parâmetro na URL
+if($_GET):
 
-    $controller = $_GET['arquivo']; // 
+    $controller = $_GET['arquivo'];
     $metodo = $_GET['metodo'];
 
-    require_once "classes/".$controller.".php"; // Inclui o arquivo do controlador baseado no parâmetro 'arquivo' da URL
+    if(isset($_GET['parametro'])):
+        $parametro = $_GET['parametro'];
+    endif;
+
+    require_once "classes/".$controller.".php";
+    
 
     $obj = new $controller();
-    $obj-> $metodo();
+    if(isset($_GET['parametro']) && $_GET['parametro'] !== ''):
+        $obj->$metodo($parametro); 
     else:
-        require_once "classes/Controlador.php";
-        $obj = new Controlador();
-        $obj->index();
-endif;  
+        $obj->$metodo();
+    endif;
+    
+
+else:
+    require_once "classes/Controlador.php";
+    $obj = new Controlador();
+    $obj->index();
+
+endif;
 ?>

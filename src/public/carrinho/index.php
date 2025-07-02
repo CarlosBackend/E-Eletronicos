@@ -1,4 +1,4 @@
-<?php require_once "public/shared/header.php";?>
+<?php require_once "public/shared/header.php"; ?>
 
 <section class="car">
     <div class="container">
@@ -21,7 +21,7 @@
                         <?php 
                         if(isset($_SESSION['carrinho'])):
                             foreach($_SESSION['carrinho'] as $key => $value):     
-                             $subTotal = $_SESSION['carrinho'][$key]['preco'] * $_SESSION['carrinho'][$key]['qtde'];                         
+                            $subTotal = $_SESSION['carrinho'][$key]['preco'] * $_SESSION['carrinho'][$key]['qtde'];                         
 
                         ?>
                         <tr class="zebra">
@@ -90,10 +90,12 @@
 
 <script type="text/javascript" src="lib/js/jquery-3.6.4.min.js"></script>
 <script>
+
      $(function() {
         $('.qtde').change(function() {
             var linha = $(this).attr('rel');
             var quantidade = $(this).val();
+            
             $.ajax({
                 type: "POST",
                 url: "index.php?arquivo=Controlador&metodo=atualizarCarrinho",
@@ -106,6 +108,7 @@
             });
         });
     });
+
 </script>
-<?php require_once "public/shared/footer.php";?>
+<?php require_once "public/shared/footer.php"; ?>
 

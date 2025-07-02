@@ -12,7 +12,7 @@ abstract class Notification
              </div>
         </div>
         ";
-        return $mensagem;
+        echo $mensagem;
     }
 
     public function error($msg,$arquivo,$metodo): string{
@@ -25,6 +25,6 @@ abstract class Notification
              </div>
         </div>
         ";
-        return $mensagem;
+        echo $mensagem;
     }
 }
