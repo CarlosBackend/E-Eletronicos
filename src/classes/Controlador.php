@@ -1,7 +1,8 @@
 <?php
-    SESSION_START();
+    SESSION_START(); // Inicia a sessão
 require_once "classes/Produto.php";
 require_once "classes/Notification.php"; 
+require_once "classes/Clientes.php";
 class Controlador extends Notification {
 
     public function index(){
@@ -11,6 +12,7 @@ class Controlador extends Notification {
     }
     public function metodo():void{
         $id = 0;
+        $cliente = (new Clientes())->obterClientes();
 
         if($_GET && isset($_GET['id'])):
             $id = $_GET['id'];
@@ -63,8 +65,11 @@ class Controlador extends Notification {
     }
 
     public function finalizarCarrinho(): void {
+
+         var_dump($_POST);
+
         // session_destroy(); // Destrói a sessão para finalizar o carrinho
-        unset($_SESSION['carrinho']); // Remove o carrinho da sessão
-        echo $this-> success('Carrinho finalizado com sucesso! Obrigado pela compra.','Controlador','metodo');
+        //unset($_SESSION['carrinho']); // Remove o carrinho da sessão
+        //echo $this-> success('Carrinho finalizado com sucesso! Obrigado pela compra.','Controlador','metodo');
     }
 }

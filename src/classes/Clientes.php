@@ -6,7 +6,7 @@ class Clientes{
     private string $cpf;
 
 
-    public function __construct(int $id, string $nome, string $cpf) {
+    public function __construct(int $id = 0, string $nome = '', string $cpf = '') {
         $this->id = $id;
         $this->nome = $nome;
         $this->cpf = $cpf;
