@@ -30,6 +30,13 @@
                         <a href="index.php?arquivo=Controlador&metodo=metodo" class="flex justify-center item-centro mg-l-1">
                             <i class="fa-solid fa-cart-shopping fonte24 fnc-preto-1"></i>
                             <span class = "balao flex justify-center item-centro poppins-black fnc-branco"> 0 </span>
+                            <?php
+                            if(isset($_SESSION['carrinho'])):
+                                echo $_SESSION['qtdeprodutos'];
+                            else:
+                                echo 0;
+                                endif;
+                             ?>
                         </a>
                     </li>
                 </ul>

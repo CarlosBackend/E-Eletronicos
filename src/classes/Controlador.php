@@ -38,6 +38,11 @@ class Controlador extends Notification {
             $_SESSION['carrinho'][$linha +1]['preco'] = $produto->getPreco();
             $_SESSION['carrinho'][$linha +1]['imagem'] = $produto->getImagem();
             $_SESSION['carrinho'][$linha +1]['qtde'] = 1;
+
+            if(!isset($_SESSION['qtdeprodutos'])):
+                    $_SESSION['qtdeprodutos'] = 0; // Inicializa a quantidade de produtos no carrinho
+                endif;
+                $_SESSION['qtdeprodutos'] +=1; // Incrementa a quantidade de produtos no carrinho
                 endif;
             endif;
         require_once "public/carrinho/index.php";
@@ -45,8 +50,11 @@ class Controlador extends Notification {
     public function atualizarCarrinho(): void{
 
         if($_GET):
+
             $linha = $_GET['linha']; // Obtém a linha do carrinho
+
             if(isset($_SESSION['carrinho'][$linha])):
+                $_SESSION['qtdeprodutos'] -=$_SESSION['qtdeprodutos'] += $itens['qtde'];
                 unset($_SESSION['carrinho'][$linha]); // Remove o produto da sessão o metodo unset() é usado para remover um elemento de um array
             endif;
             // Redireciona para a página do carrinho após remover o produto
@@ -59,6 +67,11 @@ class Controlador extends Notification {
             $qtde = $_POST['quantidade']; // Obtém a nova quantidade
             if($qtde >0):
                 $_SESSION['carrinho'][$linha]['qtde'] = $qtde; // Atualiza a quantidade do produto na sessão
+
+                $_SESSION['qtdeprodutos']=0;
+                foreach($_SESSION['carrinho'] as $itens):
+                    $_SESSION['qtdeprodutos'] += $itens['qtde'];
+                    endforeach;
             endif;
         endif;  
 
