@@ -3,7 +3,7 @@
 <section class="car">
     <div class="container">
         <div class="box-6 mg-t-6">
-            <form action="index.php?arquivo=Controlador&metodo=finalizarCarrinho" method="post">
+            <form action="index.php?arquivo=Controlador&metodo=finalizarCarrinho" method="POST">
                 <table class="car-table">
                     <thead>
                         <tr>
@@ -17,13 +17,14 @@
                         </tr>
                     </thead>
                     <!-- table data -->
-                     <tbody>
-                        <?php
-                        if(isset($_SESSION['carrinho'])): // Verifica se a sessão carrinho está setada
-                            foreach($_SESSION['carrinho'] as $key => $value):
-                                $subTotal = $_SESSION['carrinho'][$key]['preco'] * $_SESSION['carrinho'][$key]['qtde'] // Percorre o array carrinho
+                    <tbody>
+                        <?php 
+                        if(isset($_SESSION['carrinho'])):
+                            foreach($_SESSION['carrinho'] as $key => $value):     
+                             $subTotal = $_SESSION['carrinho'][$key]['preco'] * $_SESSION['carrinho'][$key]['qtde'];                         
+
                         ?>
-                         <tr class="zebra">
+                        <tr class="zebra">
                            
                             <td class="fonte12 pd-5 txt-c"> <?= $_SESSION['carrinho'][$key]['id']; ?></td>
                             <td class="fonte12 pd-5 txt-c"> <?= $_SESSION['carrinho'][$key]['descricao'];?></td>
@@ -42,38 +43,46 @@
                                 </a>
                             </td>
                         </tr>
-                        <?php endforeach; // Fim do foreach ?>
-                        <tr>
+                        <?php endforeach; ?>
+                        <tr>                          
                             <td colspan="6">
+                               
                                 <label for="">Selecionar Clientes</label>
                                 <select name="cliente" id="" class="mg-b-2">
+                                    
                                     <option value="">Selecione um cliente</option>
-                                    <option value="">Ciclano</option>
-                                    <option value="">Fulano</option>
+                                    <?php 
+                                    if(isset($cliente) && count($cliente) > 0 ): 
+                                        foreach($cliente as $valor):  ?>
+                                     <option value="<?= $valor->getId();?>"><?= $valor->getNome();?></option> 
+                                       <?php endforeach; 
+                                       endif;?>
                                 </select>
-                            
+
                                 <label for="">Forma de pagamento</label>
-                                <select name="cliente" id="" clas="mg-b-2>
+                                <select name="formapagamento" id="">
                                     <option value="">Selecionar pagamento</option>
-                                    <option value="">Boleto</option>
-                                    <option value="">Pay Pal</option>
-                                    <option value="">Cartão de crédito</option>
+                                    <option value="1">Boleto</option>
+                                    <option value="2">Pay Pal</option>
+                                    <option value="3">Cartão credito</option>
                                 </select>
                             </td>
                         </tr>
-                        <tr>
+                        <tr>                       
                             <td colspan="7">
-                                <a href="index.php?arquivo=Controlador&metodo=index" class="btn-100 bg-p1-amarelo mg-b-1 fnc-branco fonte14">Comprar Mais</a>
+                                <a href="index.php?arquivo=Controlador&metodo=index" class="btn-100  bg-p1-amarelo mg-b-1 fnc-branco fonte14 fw-800">Comprar Mais</a>
                                 <input type="submit" value="Finalizar" class="btn-100 bg-p1-amarelo fnc-branco">
                             </td>
-                        </tr>
-                        <?php else: // Se a sessão carrinho não estiver setada ?>
+                        </tr> 
+                        <?php 
+                        else:?>
                         <tr>
-                            <td colspan="7">Carrinho Vazio!</td>
-                        </tr>
+                            <td colspan="7" >Carrinho vazio!</td>
+                        </tr> 
+                        
                         <?php endif;?>
-                     </tbody>
-                </table>
+                     </tbody>  
+                      </table>
             </form>
         </div>
     </div>
