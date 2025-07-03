@@ -1,0 +1,17 @@
+{
+  "name": "carlos/e-eletronicos",
+  "description": "projeto desenvolvido no final do modulo de php orientado a objetos",
+  "type": "project",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "carlos henrique dos santos"
+    }
+  ],
+  "require": {}
+}
