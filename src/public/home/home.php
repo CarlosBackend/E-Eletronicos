@@ -43,7 +43,7 @@
          </div>
 
          <div class="box-12">
-             <a href="index.php?arquivo=Controlador&metodo=metodo&id=<?= $valor->getId();?>" class=" btn-100 bg-p7-electric mg-t-1 fnc-branco fonte14 bg-p1-verde-hover">Inserir no carrinho</a>
+             <a href="index.php?dir=Controller&arquivo=Controlador&metodo=metodo&id=<?= $valor->getId();?>" class=" btn-100 bg-p7-electric mg-t-1 fnc-branco fonte14 bg-p1-verde-hover">Inserir no carrinho</a>
          </div>
      </div>
         <?php endforeach; endif; ?>        

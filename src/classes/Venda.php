@@ -1,5 +1,5 @@
 <?php
-
+namespace App\classes;// caminho do namespace 
 class Venda {
     private float $valor;
     private Clientes $cliente;

@@ -1,5 +1,5 @@
 <?php
-
+namespace App\classes;// caminho do namespace 
 class Clientes{
     private int $id;
     private string $nome;

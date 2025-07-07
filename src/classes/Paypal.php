@@ -1,8 +1,5 @@
 <?php 
-
-require_once 'classes/PagamentoInterface.php';
-require_once 'classes/Notification.php';
-
+namespace App\classes;// caminho do namespace 
 class PayPal extends Notification implements PagamentoInterface
 {
     public function pagar($valor){
