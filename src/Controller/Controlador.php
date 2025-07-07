@@ -1,13 +1,12 @@
 <?php
+namespace App\Controller;// caminho do namespace 
+use App\classes\Produto;
+use App\classes\Clientes;
+use App\classes\Boleto;
+use App\classes\PayPal;
+use App\classes\CartaoCredito;
+use App\classes\Notification;
 session_start();
-
-require_once "classes/Produto.php";
-require_once "classes/Clientes.php";
-require_once "classes/Boleto.php";
-require_once "classes/Paypal.php";
-require_once "classes/CartaoCredito.php";
-require_once "classes/Notification.php";
-
 class Controlador  extends Notification
 {
 
@@ -175,7 +174,7 @@ class Controlador  extends Notification
 
                    echo "<div>";  
                    #FIM DA LISTAGEM DE PRODUTOS
-                   echo "<div class='box-12 mg-t-2'> <a href='index.php?arquivo=$formaPag&metodo=Pagar&parametro=$total' class='btn-100 bg-p1-amarelo fnc-branco'>Finalizar Carrinho </a>   </div>";
+                   echo "<div class='box-12 mg-t-2'> <a href='index.php?dir=classes&arquivo=$formaPag&metodo=Pagar&parametro=$total' class='btn-100 bg-p1-amarelo fnc-branco'>Finalizar Carrinho </a>   </div>";
 
                    echo " </div> ";
                echo " </div> ";

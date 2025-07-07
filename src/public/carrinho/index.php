@@ -3,7 +3,7 @@
 <section class="car">
     <div class="container">
         <div class="box-6 mg-t-6">
-            <form action="index.php?arquivo=Controlador&metodo=finalizarCarrinho" method="POST">
+            <form action="index.php?dir=Controller&arquivo=Controlador&metodo=finalizarCarrinho" method="POST">
                 <table class="car-table">
                     <thead>
                         <tr>
@@ -38,7 +38,7 @@
                             </td>
                             <td class="fonte12 pd-5 txt-c"> R$ <?= number_format($subTotal,2,',','.'); ?></td>
                             <td>
-                                <a href="index.php?arquivo=Controlador&metodo=atualizarCarrinho&linha=<?= $key; ?>" class="txt-c flex justify-center item-centro">
+                                <a href="index.php?dir=Controller&arquivo=Controlador&metodo=atualizarCarrinho&linha=<?= $key; ?>" class="txt-c flex justify-center item-centro">
                                     <i class="fa-solid fa-trash-can fonte22 fnc-error"></i>
                                 </a>
                             </td>
@@ -70,7 +70,7 @@
                         </tr>
                         <tr>                       
                             <td colspan="7">
-                                <a href="index.php?arquivo=Controlador&metodo=index" class="btn-100  bg-p1-amarelo mg-b-1 fnc-branco fonte14 fw-800">Comprar Mais</a>
+                                <a href="index.php?dir=Controller&arquivo=Controlador&metodo=index" class="btn-100  bg-p1-amarelo mg-b-1 fnc-branco fonte14 fw-800">Comprar Mais</a>
                                 <input type="submit" value="Finalizar" class="btn-100 bg-p1-amarelo fnc-branco">
                             </td>
                         </tr> 

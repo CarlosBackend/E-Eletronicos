@@ -1,6 +1,5 @@
 <?php 
-require_once 'classes/Notification.php';
-require_once 'classes/PagamentoInterface.php';
+namespace App\classes;// caminho do namespace 
 class CartaoCredito extends Notification implements PagamentoInterface
 {
     public function pagar($valor){

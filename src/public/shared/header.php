@@ -22,14 +22,14 @@ endif;
     <header class="header-light pd-10">
         <div class="container">
             <div class="box-4">
-                <a href="index.php?arquivo=Controlador&metodo=index">
+                <a href="index.php?dir=Controller&arquivo=Controlador&metodo=index">
                     <h1 class="fonte42 fnc-preto-1 poppins-black">e-Compras</h1>
                 </a>
             </div>
             <div class="box-8">
                 <ul class="flex justify-end pd-t-1">
                     <li>
-                        <a href="index.php?arquivo=Controlador&metodo=metodo" class="flex justify-end item-centro mg-l-1">
+                        <a href="index.php?dir=Controller&arquivo=Controlador&metodo=metodo" class="flex justify-end item-centro mg-l-1">
                             <i class="fa-solid fa-cart-shopping fonte26 fnc-preto-1"></i>
                             <span class="balao flex justify-center item-centro  fnc-branco">
                                 <?php
