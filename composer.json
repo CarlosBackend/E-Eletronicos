@@ -13,5 +13,7 @@
       "name": "carlos henrique dos santos"
     }
   ],
-  "require": {}
+  "require": {
+    "dompdf/dompdf": "^3.1"
+  }
 }
