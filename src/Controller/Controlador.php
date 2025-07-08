@@ -104,6 +104,10 @@ class Controlador  extends Notification
        require_once "public/shared/header.php";
         if ($_POST):
 
+            if(ob_get_length()):
+                ob_end_clean(); // Limpa o buffer de saída
+                endif;
+
             $clienteId = $_POST['cliente'];
             $formaPag = $_POST['formapagamento'];
 
@@ -183,12 +187,20 @@ class Controlador  extends Notification
             $html .= " </div> ";
                       $options = new Options();
             $options->set('isHtml5ParserEnabled', true);
-            $options->selt('isRemoteEnabled', true);
+            $options->set('isRemoteEnabled', true);
             $dompdf = new Dompdf($options);
             $dompdf->load_Html($html);
+            $dompdf->setPaper('A4', 'portrait');
+            try{
+                $dompdf->render();
+                $dompdf->stream("Detalhes_da_venda.pdf", ['Attachment' => false]); 
+            }catch(Exception $e){
+                echo "Erro ao gerar o PDF: " . $e->getMessage();
+            }
 
             unset($_SESSION['carrinho']);
             unset($_SESSION['qtdeProduto']);
+            exit; // encerra o script para não continuar a execução
             
         endif;
     }
