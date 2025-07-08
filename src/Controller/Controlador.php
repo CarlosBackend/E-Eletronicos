@@ -6,6 +6,8 @@ use App\classes\Boleto;
 use App\classes\PayPal;
 use App\classes\CartaoCredito;
 use App\classes\Notification;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 session_start();
 class Controlador  extends Notification
 {
@@ -132,53 +134,58 @@ class Controlador  extends Notification
 
             endswitch;
 
-            echo " <div class='container flex justify-center'> ";
-               echo " <div class='box-6 pd-10 bg-branco radius mg-t-10'> ";
-                   echo " <div class='box-12'> ";
-                   echo "<h3 class=' poppins-medium fonte24'> Detalhes da compra </h3> ";
-                   echo "<div class='divider mg-t-2 mg-b-2'></div>";
+            $html =  " <div class='container flex justify-center'> ";
+               $html .= " <div class='box-6 pd-10 bg-branco radius mg-t-10'> ";
+                   $html .= " <div class='box-12'> ";
+                   $html .= "<h3 class=' poppins-medium fonte24'> Detalhes da compra </h3> ";
+                   $html .= "<div class='divider mg-t-2 mg-b-2'></div>";
                    #LISTANDO DADOS DO CLIENTE
-                   echo "<div class='box-12 flex justify-between'>";
-                      echo "<p class='fonte14 espaco-letra poppins-medium'><strong class'fonte16'>Cliente:</strong>{$cliSelecionado->getNome()} </p>";
-                      echo "<p class='fonte14 espaco-letra poppins-medium'><strong class'fonte16'>Documento:</strong>{$cliSelecionado->getCpf()} </p>";
-                   echo "</div>";
+                   $html .= "<div class='box-12 flex justify-between'>";
+                      $html .= "<p class='fonte14 espaco-letra poppins-medium'><strong class'fonte16'>Cliente:</strong>{$cliSelecionado->getNome()} </p>";
+                      $html .= "<p class='fonte14 espaco-letra poppins-medium'><strong class'fonte16'>Documento:</strong>{$cliSelecionado->getCpf()} </p>";
+                   $html .= "</div>";
 
-                   echo "<div class='limpar'></div> <div class='divider mg-t-2 mg-b-2'></div>";
+                   $html .= "<div class='limpar'></div> <div class='divider mg-t-2 mg-b-2'></div>";
                    
                    #LISTANDO ITENS DO CARRINHO
-                   echo "<div class='box-12 mg-t-2'>";
-                      echo "<h3 class='poppins-medium fonte24 mg-b-2'> Itens no carrinho </h3> ";
-                      echo "<div class='box-12'>";
+                   $html .= "<div class='box-12 mg-t-2'>";
+                      $html .= "<h3 class='poppins-medium fonte24 mg-b-2'> Itens no carrinho </h3> ";
+                      $html .= "<div class='box-12'>";
                       if(isset($_SESSION['carrinho'])):
                         $total = 0;
                         foreach ($_SESSION['carrinho']  as $key => $valor):
                             $subTotal = $valor['qtde'] * $valor['preco'];
                             $total += $subTotal;
-                            echo "<div class='box-12 bg-p3-paper radius pd-10 mg-b-2'>";
-                               echo "<div class='box-2'>";
-                                  echo "<img src='lib/img/{$valor['imagem']}' class=' logo-40' />";
-                               echo "</div>";
-                            echo "<div class='box-10'>";
+                            $html .= "<div class='box-12 bg-p3-paper radius pd-10 mg-b-2'>";
+                               $html .= "<div class='box-2'>";
+                                  $html .= "<img src='lib/img/{$valor['imagem']}' class=' logo-40' />";
+                               $html .= "</div>";
+                            $html .= "<div class='box-10'>";
 
-                            echo "<p class='fonte14 espaco-letra poppins-medium'><strong class'fonte16'>Descrição:</strong>{$valor['descricao']} </p>";
-                            echo "<p class='fonte14 espaco-letra poppins-medium'><strong class'fonte16'>Qtde:</strong>{$valor['qtde']} </p>";
-                            echo "<p class='fonte14 espaco-letra poppins-medium'><strong class'fonte16'>Sub-total:</strong> R$ ". number_format($subTotal,2,',','.') ."</p>";
+                            $html .= "<p class='fonte14 espaco-letra poppins-medium'><strong class'fonte16'>Descrição:</strong>{$valor['descricao']} </p>";
+                            $html .= "<p class='fonte14 espaco-letra poppins-medium'><strong class'fonte16'>Qtde:</strong>{$valor['qtde']} </p>";
+                            $html .= "<p class='fonte14 espaco-letra poppins-medium'><strong class'fonte16'>Sub-total:</strong> R$ ". number_format($subTotal,2,',','.') ."</p>";
                  
-                            echo "</div>";
-                            echo "</div>";
+                            $html .= "</div>";
+                            $html .= "</div>";
                         endforeach;
                       endif;
 
-                      echo "<div class='box-12'> <h4 class='txt-d fonte16 poppins-black fnc-cinza'>Total: <span class=' poppins-medium'>R$ ". number_format($total,2,',','.') ." </span></h4> </div>";
-                      echo "<div class='box-12 mg-t-2 bg-p1-verde2 radius pd-10'> <p class='txt-c fnc-verde poppins-medium'> Pagamento realizado via {$formaPag} </p> </div>";
+                      $html .= "<div class='box-12'> <h4 class='txt-d fonte16 poppins-black fnc-cinza'>Total: <span class=' poppins-medium'>R$ ". number_format($total,2,',','.') ." </span></h4> </div>";
+                      $html .= "<div class='box-12 mg-t-2 bg-p1-verde2 radius pd-10'> <p class='txt-c fnc-verde poppins-medium'> Pagamento realizado via {$formaPag} </p> </div>";
 
-                   echo "<div>";  
+                   $html .= "<div>";  
                    #FIM DA LISTAGEM DE PRODUTOS
-                   echo "<div class='box-12 mg-t-2'> <a href='index.php?dir=classes&arquivo=$formaPag&metodo=Pagar&parametro=$total' class='btn-100 bg-p1-amarelo fnc-branco'>Finalizar Carrinho </a>   </div>";
+                   $html .= "<div class='box-12 mg-t-2'> <a href='index.php?dir=classes&arquivo=$formaPag&metodo=Pagar&parametro=$total' class='btn-100 bg-p1-amarelo fnc-branco'>Finalizar Carrinho </a>   </div>";
 
-                   echo " </div> ";
-               echo " </div> ";
-            echo " </div> ";
+                   $html .= " </div> ";
+               $html .= " </div> ";
+            $html .= " </div> ";
+                      $options = new Options();
+            $options->set('isHtml5ParserEnabled', true);
+            $options->selt('isRemoteEnabled', true);
+            $dompdf = new Dompdf($options);
+            $dompdf->load_Html($html);
 
             unset($_SESSION['carrinho']);
             unset($_SESSION['qtdeProduto']);
